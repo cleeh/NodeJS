@@ -1,4 +1,6 @@
-string = "Hello Javascript!";
+"use strict";
+
+string = "Hello Javascript!"; // ReferenceError: string is not defined
 // Statement - Interpret Stage
 function doA(data){
 	console.log(data);
