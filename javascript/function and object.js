@@ -14,3 +14,16 @@ function doA(){
 }
 
 doA();
+console.log('====================================');
+
+function doB(){
+	var v1 = 10;
+	var v2 = function(){
+		v1++;
+		console.log(v1);
+	}; // Overlapping Function
+	
+	v2();
+}
+
+doB();
