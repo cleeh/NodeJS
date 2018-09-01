@@ -9,3 +9,20 @@ function makeFunc(){
 
 var myFunc = makeFunc();
 myFunc();
+
+function Counter(){
+	var count = 0;
+	var check = function(){
+		console.log(++count);
+	};
+
+	return check;
+}
+
+var checker = Counter();
+
+checker();
+checker();
+checker();
+checker();
+checker();
