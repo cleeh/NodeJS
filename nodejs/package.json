@@ -4,6 +4,7 @@
 	"dependencies": {
 		"locally": "^0.2.1",
 		"lodash": "^4.17.10",
+		"mysql": "^2.16.0",
 		"socket.io": "^2.1.1"
 	}
 }
