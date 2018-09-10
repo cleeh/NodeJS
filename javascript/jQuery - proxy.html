@@ -1,0 +1,70 @@
+<!--
+http://mylife365.tistory.com/122
+-->
+
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<script src="js/jquery.js"></script>
+</head>
+<body>
+    <button>버튼</button>
+ 
+    <script>
+ 
+        // proxy : 대리인, 대리권 의미이다.
+        // 데이터를 가져올 때 해당 사이트에서 바로 자신의 PC로 가져오는 것이 아니라 임시 저장소를 거쳐서 가져오는 것 (이라고 검색에는 나온다.ㅋ)
+        
+        var app = {
+            config: {
+                clickMessage: '안녕하세요!'
+            },
+            clickHandler: function() {
+ 
+                console.log(this) // 여기서 this는 app 객체
+                console.log(this.config.clickMessage);
+ 
+            }
+        };
+ 
+        // 메서드에서 this는 메서드를 호출한 객체(context)를 의미한다.
+ 
+        // clickHandler 메서드에서 this는 app이다. (당연하겠지..)
+        app.clickHandler(); 
+ 
+ 
+        // 여기선 에러가 난다.
+        // this에 해당하는 객체가(button) 으로 재정의 되었는데 button객체에는 config란 맴버가 없기 때문이다.
+        $('button').bind('click', app.clickHandler);       
+ 
+        // 이럴때 proxy(대리인.. 임시저장소를 거쳐서..??)을 통해 clickHandler 메서드의 this는 app객체로 유지할수 있게 한다.
+        // 다음 처럼 말이다.
+ 
+        // $.proxy( context, name )   
+        $('button').bind('click', $.proxy(app, 'clickHandler'));  // clickHandler함수를 proxy(대리인)을 거쳐 이벤트 연결하였다.  
+ 
+        // 또는 (결과는 같다.)
+        // $.proxy( function, context )
+        // $('button').bind('click', $.proxy(app.clickHandler, app));  
+ 
+        //--------------------------------------------------------------------------------------------------------------------------------------
+ 
+        // setTimeout 의 context(this)변경
+ 
+        $("button").click(function() {
+            setTimeout(function() {
+                console.log(this); //window
+            }, 1000);
+        });
+ 
+ 
+        $("button").click(function(event) {
+            setTimeout($.proxy(function() {
+                console.log(this); //button
+            }, this), 1000);
+        });
+ 
+    </script>
+</body>
+</html>
